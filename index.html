@@ -5,41 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CRIB Storage</title>
+    <link rel="stylesheet" href="main.css">
 </head>
-
-<style>
-    input {
-        padding: 7px;
-        height: 40px;
-    }
-
-    button#btnInsert {
-        padding: 7px;
-        height: 57px;
-        background: green;
-        color:ghostwhite;
-    }
-
-      button#btnSearch {
-        padding: 7px;
-        height: 57px;
-    }
-
-    legend {
-        font-size: x-large;
-    }
-
-    #title {
-    margin: auto;
-    padding: 10px;
-    width: 20%;
-    }
-
-    fieldset{
-        margin-bottom: 20px;
-    }
-
-</style>
 <body>
     <h1 id="title">CRIB</h1>
 
@@ -54,24 +21,21 @@
             <legend>Where did I put it?</legend>
             <input type="text" id="searchItem" placeholder="Search for an item...">
             <button id="btnSearch" type=button">Search</button>
-            <p>=></p>
-            <p id="location"></p>
+            <div id="itemIsHere"></div>
 
     </fieldset>
 
     <fieldset>
             <legend>Local storage</legend>
             <div id="isOutout"></div>
+            <button id="btnClear" type=button">ClearLocalStorage</button>
         </fieldset>
 
-
     <script>
-
         const inputKey = document.getElementById("inputKey");
         const inputValue = document.getElementById("inputValue");
         const btnInsert = document.getElementById("btnInsert");
         const isOutout = document.getElementById("isOutout");
-        
         const searchItem = document.getElementById("searchItem");
         const btnSearch = document.getElementById("btnSearch");
 
@@ -81,13 +45,20 @@
             let value = inputValue.value;
 
             if (key == "" || value == "") {
-                alert ("\t\t\tDobby says: \nPlease enter something other than spaces!");
+                alert ("Dobby says: \nPlease enter something other than spaces!");
             }
             else {
-                localStorage.setItem(key, value);
-            }
+                if (localStorage.getItem(key) !== null) {
+                    alert ("Dobby says: \n item is already in CRIB!");
+                }
+                else {
+                    localStorage.setItem(key, value);
+                    location.reload();
+                    inputKey.value = "";
+                    inputValue.value = "";
+            }}
         };
-        
+
         for (let l=0; l< localStorage.length; l++) {
             let storedKey = localStorage.key(l);
             let storedValue = localStorage.getItem(storedKey);
@@ -98,16 +69,38 @@
         btnSearch.onclick = function() {
             let itemToSearch = searchItem.value;
             if (itemToSearch == "") {
-                alert ("\t\t\tDobby says: \nPlease enter something other than spaces!");
+                alert ("Dobby says: \nPlease enter something other than spaces!");
             }
             else {
                 if (localStorage.getItem(`${itemToSearch}`) === null) {
-                    alert ("\t\t\tDobby says: \nDafuq? item is not in CRIB!");
+                    alert ("Dobby says: \nDafuq? item is not in CRIB!");
+                }
+                else {
+                    itemIsHere = document.getElementById("itemIsHere");
+                    itemIsHere.innerHTML = searchItem.value + " is in " + localStorage.getItem(`${itemToSearch}`);
+                    searchItem.value = "";
+
                 }
             } 
+        };
 
+        btnClear.onclick = function() {
+            localStorage.clear();
+            isOutout.innerHTML = "";
         };
         
+
+
+//TODO
+//         partial search
+//         not case sensitive
+//         dropdown cu camere, apoi in functie de selectie => display all locations or add new one. Mai bine lucruri predefinite => 3 items de locatie
+//         tabel cu filtrare si sortare
+//         change location
+//         add save in json
+        // trim spaces
+        // optional - search almost: with other chars ";"
+        // CRUD (delete)
 
 
 
