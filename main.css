@@ -1,0 +1,30 @@
+input {
+    padding: 7px;
+    height: 40px;
+}
+
+button#btnInsert {
+    padding: 7px;
+    height: 57px;
+    background: blue;
+    color:ghostwhite;
+}
+
+button#btnSearch {
+    padding: 7px;
+    height: 57px;
+}
+
+legend {
+    font-size: x-large;
+}
+
+#title {
+    margin: auto;
+    padding: 10px;
+    width: 20%;
+}
+
+fieldset{
+    margin-bottom: 20px;
+}
