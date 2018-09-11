@@ -68,41 +68,46 @@
         
         btnSearch.onclick = function() {
 
-            let getLocationByPartialName = function (query) {
+            function getLocation(query) {
                 var i, results = [];
                 for (i in localStorage) {
                     if (localStorage.hasOwnProperty(i)) {
-                    if (i.match(query) || (!query && typeof i === 'string')) {
-                        return localStorage.getItem(i);
-                        // value = JSON.parse(localStorage.getItem(i));
-                        // results.push({key:i,val:value});
+                    if (i.toLowerCase().match(query.toLowerCase()) || (!query && typeof i === 'string')) {
+                        value = localStorage.getItem(i);
+                        results.push({key:i,val:value});
                     }
                     }
                 }
-                // return results;
+                return results;
             }
 
-            // let itemToSearch = searchItem.value;
-            let itemToSearch = new RegExp(`/${searchItem.value}/`);
-            console.log(itemToSearch);
-            console.log('hot chocolate'.match(itemToSearch).input);
-            // console.log('hot chocolate'.match(/choco/).input);
+            let itemToSearch = searchItem.value;
             if (itemToSearch == "") {
                 alert ("Dobby says: \nPlease enter something other than spaces!");
             }
             else {
-                if (localStorage.getItem(`${itemToSearch}`) === null) {
+                let resultLocation = getLocation(itemToSearch);
+                if (resultLocation.length == 0) {
                     alert ("Dobby says: \nDafuq? item is not in CRIB!");
                     searchItem.value = "";
+                    itemIsHere.innerHTML = "";
                 }
                 else {
                     itemIsHere = document.getElementById("itemIsHere");
-                    // itemIsHere.innerHTML = searchItem.value + " is in " + localStorage.getItem(`${itemToSearch}`);
-                    itemIsHere.innerHTML = searchItem.value + " is in " + getLocationByPartialName(itemToSearch);
-                    searchItem.value = "";
-
+                    let locations = '';
+                    if (resultLocation.length > 1) {
+                        itemIsHere.innerHTML = "";
+                        for (let ind = 0; ind < resultLocation.length; ind++){
+                            locations = resultLocation[ind].val;
+                            itemIsHere.innerHTML += searchItem.value + " is in location:" + locations + "<br>";                        }
+                    }
+                    else {
+                        locations = resultLocation[0].val;
+                        itemIsHere.innerHTML = searchItem.value + " is in location:" + locations;
+                    }
+                    searchItem.value = "";}
                 }
-            } 
+            // } 
         };
 
         btnClear.onclick = function() {
@@ -113,8 +118,6 @@
 
 
 //TODO
-//         partial search
-//         not case sensitive
 //         dropdown cu camere, apoi in functie de selectie => display all locations or add new one. Mai bine lucruri predefinite => 3 items de locatie
 //         tabel cu filtrare si sortare
 //         change location
