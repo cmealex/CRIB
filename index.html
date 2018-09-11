@@ -67,17 +67,38 @@
         }
         
         btnSearch.onclick = function() {
-            let itemToSearch = searchItem.value;
+
+            let getLocationByPartialName = function (query) {
+                var i, results = [];
+                for (i in localStorage) {
+                    if (localStorage.hasOwnProperty(i)) {
+                    if (i.match(query) || (!query && typeof i === 'string')) {
+                        return localStorage.getItem(i);
+                        // value = JSON.parse(localStorage.getItem(i));
+                        // results.push({key:i,val:value});
+                    }
+                    }
+                }
+                // return results;
+            }
+
+            // let itemToSearch = searchItem.value;
+            let itemToSearch = new RegExp(`/${searchItem.value}/`);
+            console.log(itemToSearch);
+            console.log('hot chocolate'.match(itemToSearch).input);
+            // console.log('hot chocolate'.match(/choco/).input);
             if (itemToSearch == "") {
                 alert ("Dobby says: \nPlease enter something other than spaces!");
             }
             else {
                 if (localStorage.getItem(`${itemToSearch}`) === null) {
                     alert ("Dobby says: \nDafuq? item is not in CRIB!");
+                    searchItem.value = "";
                 }
                 else {
                     itemIsHere = document.getElementById("itemIsHere");
-                    itemIsHere.innerHTML = searchItem.value + " is in " + localStorage.getItem(`${itemToSearch}`);
+                    // itemIsHere.innerHTML = searchItem.value + " is in " + localStorage.getItem(`${itemToSearch}`);
+                    itemIsHere.innerHTML = searchItem.value + " is in " + getLocationByPartialName(itemToSearch);
                     searchItem.value = "";
 
                 }
