@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CRIB Storage</title>
     <link rel="stylesheet" href="main.css">
+    <script src="https://www.gstatic.com/firebasejs/5.5.0/firebase.js"></script>
+
 </head>
 <body>
     <h1 id="title">CRIB</h1>
@@ -14,13 +16,13 @@
         <legend>Insert an item</legend>
         <input type="text" id="inputKey" placeholder="Enter item...">
         <input type="text" id="inputValue" placeholder="Enter location...">
-        <button id="btnInsert" type=button">Add item</button>
+        <button id="btnInsert" type=button>Add item</button>
     </fieldset>
 
     <fieldset>
             <legend>Where did I put it?</legend>
             <input type="text" id="searchItem" placeholder="Search for an item...">
-            <button id="btnSearch" type=button">Search</button>
+            <button id="btnSearch" type=button>Search</button>
             <div id="itemIsHere"></div>
 
     </fieldset>
@@ -28,10 +30,31 @@
     <fieldset>
             <legend>Local storage</legend>
             <div id="isOutout"></div>
-            <button id="btnClear" type=button">ClearLocalStorage</button>
+            <button id="btnClear" type=button>ClearLocalStorage</button>
         </fieldset>
 
+    <p id="demo"></p>
+
     <script>
+
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyD1zFT1rnVm45zwwVaWMaEQbvL_Fdg-H9Y",
+            authDomain: "myreallyfirstproject.firebaseapp.com",
+            databaseURL: "https://myreallyfirstproject.firebaseio.com",
+            projectId: "myreallyfirstproject",
+            storageBucket: "myreallyfirstproject.appspot.com",
+            messagingSenderId: "604257351194"
+        };
+        firebase.initializeApp(config);
+        // console.log(firebase);
+
+        let database = firebase.database();
+        let roomsRef = database.ref('rooms');
+
+
+
+
         const inputKey = document.getElementById("inputKey");
         const inputValue = document.getElementById("inputValue");
         const btnInsert = document.getElementById("btnInsert");
@@ -114,10 +137,67 @@
             localStorage.clear();
             isOutout.innerHTML = "";
         };
-        
 
 
-//TODO
+
+        function addNewRoom (roomName) {
+            database.ref('rooms/HallRoom1').set({test: "test"});
+        }
+        // addNewRoom("HallRoom");
+
+
+/*
+        later for adding an item
+        function writeUserData(userId, name, email, imageUrl) {
+            firebase.database().ref('users/' + userId).set({
+                username: name,
+                email: email,
+                profile_picture : imageUrl
+            });*/
+
+
+/*        roomsRef.on('value', gotData, errData);
+
+        function gotData(data) {
+            let rooms = data.val();
+            console.log(rooms);
+            // console.log(rooms.Kitchen.closet[0].itemName);
+            // console.log(rooms.Kitchen.closet[0].itemOptionalLocation);
+            let objKeys = Object.keys(rooms);
+            console.log(objKeys);
+            for (let i = 0; i <= objKeys.length; i++) {
+                let roomName = objKeys[i];
+                console.log(typeof roomName);
+            }
+
+        }*/
+
+/*
+        roomsRef.child("Kitchen").set({"closet":[{"itemName":"","itemLocation":""}]});
+*/
+                // for (let j = 0; j <= pieceOfFurniture.length; j++) {
+                //     let itemObject = pieceOfFurniture[j];
+                //     console.log(itemObject);
+                // }
+        //     }
+        // }
+
+        function errData(err) {
+            console.log('Error');
+            console.log(err);
+        }
+
+        // let itemInKitchen = database.ref('rooms/Kitchen/closet/itemName');
+        // document.getElementById("demo").innerHTML = itemInKitchen.val();
+
+        // let jsonData = JSON.parse(tempJson);
+        // console.log("jsonData:");
+        // console.log(jsonData);
+        // alert(jsonData.rooms.Kitchen.closet[0].itemname);
+        // document.getElementById("demo").innerHTML = jsonData.rooms.Kitchen.closet[0].itemname;
+        // document.getElementById("demo").innerHTML = data.rooms.Kitchen.closet[0].itemName;
+
+        //TODO
 //         dropdown cu camere, apoi in functie de selectie => display all locations or add new one. Mai bine lucruri predefinite => 3 items de locatie
 //         tabel cu filtrare si sortare
 //         change location

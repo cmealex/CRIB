@@ -1,0 +1,40 @@
+{
+  "rooms": {
+    "Kitchen": {
+      "closet": [{
+        "itemName": "test",
+        "itemOptionalLocation": "otherLocation"
+      }]
+    },
+    "LivingRoom": {
+      "closet": [{
+        "itemName": "",
+        "itemOptionalLocation": ""
+      }]
+    },
+    "BigBathRoom": {
+      "closet": [{
+        "itemName": "",
+        "itemOptionalLocation": ""
+      }]
+    },
+    "BedRoom": {
+      "closet": [{
+        "itemName": "",
+        "itemOptionalLocation": ""
+      }]
+    },
+    "BlueRoom": {
+      "closet": [{
+        "itemName": "",
+        "itemOptionalLocation": ""
+      }]
+    },
+    "SmallBathRoom": {
+      "closet": [{
+        "itemName": "",
+        "itemOptionalLocation": ""
+      }]
+    }
+  }
+}
