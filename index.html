@@ -7,10 +7,11 @@
     <title>CRIB Storage</title>
     <link rel="stylesheet" href="main.css">
     <script src="https://www.gstatic.com/firebasejs/5.5.0/firebase.js"></script>
+    <script src="index.js"></script>
 
 </head>
 <body>
-    <h1 id="title">CRIB</h1>
+    <h1 id="title" onclick="tt()">CRIB</h1>
 
     <fieldset>
         <legend>Insert an item</legend>
@@ -47,11 +48,9 @@
             messagingSenderId: "604257351194"
         };
         firebase.initializeApp(config);
-        // console.log(firebase);
 
         let database = firebase.database();
         let roomsRef = database.ref('rooms');
-
 
 
 
@@ -130,8 +129,8 @@
                     }
                     searchItem.value = "";}
                 }
-            // } 
         };
+
 
         btnClear.onclick = function() {
             localStorage.clear();
@@ -145,16 +144,7 @@
         }
         // addNewRoom("HallRoom");
 
-
-/*
-        later for adding an item
-        function writeUserData(userId, name, email, imageUrl) {
-            firebase.database().ref('users/' + userId).set({
-                username: name,
-                email: email,
-                profile_picture : imageUrl
-            });*/
-
+//info: false when you call exists() and null when you call val() on it.
 
 /*        roomsRef.on('value', gotData, errData);
 
